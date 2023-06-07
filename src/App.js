@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Card } from './components/Card';
+import { Header } from './components/Header';
+import { Search } from './components/Search';
+import { useTheme } from './contexts/themeContext';
+import { useUser } from './contexts/userContext';
+
+import './index.css';
 
 function App() {
+  const { theme } = useTheme();
+  const { statusMessage } = useUser();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`container ${theme}`}>
+      <main className="content">
+        <Header />
+        <Search />
+
+        {
+          statusMessage.length > 0 ? (
+            <h2 className="status-message">{statusMessage}</h2>
+          ) : (
+            <Card />
+          )
+        }
+      </main>
     </div>
   );
 }
